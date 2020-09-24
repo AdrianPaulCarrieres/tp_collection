@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T> {
+public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T>{
     private HashMap<T, Integer> map;
     private int size;
 
