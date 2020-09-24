@@ -2,11 +2,12 @@ package pobj.multiset;
 
 import java.util.Collection;
 import java.util.HashMap;
-
-
+import java.util.Iterator;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.logging.Logger;
 
-public class HashMultiSet<T> implements MultiSet<T> {
+public class HashMultiSet<T> implements MultiSet<T>, Iterable<T>{
     private HashMap<T, Integer> map;
     private int size;
 
@@ -108,5 +109,33 @@ public class HashMultiSet<T> implements MultiSet<T> {
        return size;
     }
 
-    
+    public Iterator<T> iterator(){
+        return new Iterator<T>(){
+            private int totalCompteur = 0;
+            private int currentCompteur = 0;
+
+            Iterator<Map.Entry<T, Integer>> itr = map.entrySet().iterator();
+            private Map.Entry<T, Integer> currentEntry = itr.next();
+
+            public boolean hasNext(){
+                return totalCompteur < size;
+            }
+
+            public T next(){
+                if(!hasNext()){
+                    throw new NoSuchElementException();
+                }else{
+                    if(currentEntry.getValue() > currentCompteur++){
+                        totalCompteur++;
+                        return currentEntry.getKey();
+                    }else{
+                        currentEntry = itr.next();
+                        currentCompteur = 1;
+                        totalCompteur++;
+                        return currentEntry.getKey();
+                    }
+                }
+            }
+        };
+    }
 }
