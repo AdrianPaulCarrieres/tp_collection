@@ -1,17 +1,15 @@
 package pobj.multiset;
 
+import java.util.AbstractCollection;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.logging.Logger;
 
-public class HashMultiSet<T> implements MultiSet<T>, Iterable<T>{
+public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T> {
     private HashMap<T, Integer> map;
     private int size;
-
-    private final static Logger LOGGER = Logger.getLogger(HashMultiSet.class.getName());
 
     public HashMultiSet() {
         map = new HashMap<>();
@@ -32,16 +30,16 @@ public class HashMultiSet<T> implements MultiSet<T>, Iterable<T>{
 
     @Override
     public boolean add(T e, int count) {
-        if(count <= 0){
+        if (count <= 0) {
             return false;
-        }else{
+        } else {
             Integer value = map.get(e);
-            if(value == null){
+            if (value == null) {
                 map.put(e, count);
-            }else{
+            } else {
                 map.put(e, value + count);
             }
-            size+= count;
+            size += count;
             return true;
         }
     }
@@ -67,37 +65,40 @@ public class HashMultiSet<T> implements MultiSet<T>, Iterable<T>{
     @Override
     public int count(T o) {
         Integer value = map.get(o);
-        if(value == null) return 0;
+        if (value == null)
+            return 0;
         return value;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean remove(Object e) {
         Integer value = map.get(e);
-        if(value == null){
+        if (value == null) {
             return true;
         }
         size--;
-        if(value == 1){
+        if (value == 1) {
             map.remove(e);
             return true;
-        }else{
+        } else {
             map.put((T) e, --value);
             return false;
         }
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean remove(Object e, int count) {
         Integer value = map.get(e);
-        if(value == null){
+        if (value == null) {
             return true;
         }
-        if(value - count <= 0){
+        if (value - count <= 0) {
             map.remove(e);
             size--;
             return true;
-        }else{
+        } else {
             map.put((T) e, value - count);
             size -= count;
             return false;
@@ -106,29 +107,29 @@ public class HashMultiSet<T> implements MultiSet<T>, Iterable<T>{
 
     @Override
     public int size() {
-       return size;
+        return size;
     }
 
-    public Iterator<T> iterator(){
-        return new Iterator<T>(){
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
             private int totalCompteur = 0;
             private int currentCompteur = 0;
 
             Iterator<Map.Entry<T, Integer>> itr = map.entrySet().iterator();
             private Map.Entry<T, Integer> currentEntry = itr.next();
 
-            public boolean hasNext(){
+            public boolean hasNext() {
                 return totalCompteur < size;
             }
 
-            public T next(){
-                if(!hasNext()){
+            public T next() {
+                if (!hasNext()) {
                     throw new NoSuchElementException();
-                }else{
-                    if(currentEntry.getValue() > currentCompteur++){
+                } else {
+                    if (currentEntry.getValue() > currentCompteur++) {
                         totalCompteur++;
                         return currentEntry.getKey();
-                    }else{
+                    } else {
                         currentEntry = itr.next();
                         currentCompteur = 1;
                         totalCompteur++;

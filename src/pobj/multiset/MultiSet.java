@@ -1,6 +1,8 @@
 package pobj.multiset;
 
-public interface MultiSet<T> {
+import java.util.Collection;
+
+public interface MultiSet<T> extends Collection<T> {
     public boolean add(T e, int count);
 
     public boolean add(T e);
