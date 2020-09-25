@@ -16,6 +16,10 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
         size = 0;
     }
 
+    public Map<T, Integer> getMap(){
+        return map;
+    }
+
     public HashMultiSet(Collection<T> list) {
         for (T t : list) {
             Integer value = map.get(t);
