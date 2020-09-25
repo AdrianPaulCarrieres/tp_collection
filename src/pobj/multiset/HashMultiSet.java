@@ -146,4 +146,22 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
             }
         };
     }
+
+    public String toString(){
+        StringBuilder strb = new StringBuilder();
+        strb.append("[ ");
+        Map.Entry<T, Integer> element;
+
+        Iterator<Map.Entry<T, Integer>> itr = map.entrySet().iterator();
+
+        while(itr.hasNext()){
+            element = itr.next();
+            strb.append(element.getKey());
+            strb.append(" : ");
+            strb.append(element.getValue());
+            strb.append(", ");
+        }
+        strb.replace(strb.length() - 2, strb.length(), "]");
+        return strb.toString();
+    }
 }

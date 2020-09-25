@@ -29,6 +29,7 @@ public class WordCount {
                     ms.add(word);
                 }
             }
+            System.out.println(ms);
             logger.info("Executed");
         } catch (Exception e) {
             logger.severe("Erreur");
