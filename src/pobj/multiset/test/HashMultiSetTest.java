@@ -57,5 +57,12 @@ public class HashMultiSetTest {
 		assertTrue(m.remove("b",10));
 		
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testAdd2() throws InvalidCountException{
+		MultiSet<String> m = new HashMultiSet<>();
+		m.add("a");
+		m.add("a",-1);
+	}
 	
 }

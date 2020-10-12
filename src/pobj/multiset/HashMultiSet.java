@@ -34,8 +34,11 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
 
     @Override
     public boolean add(T e, int count){
-        if (count <= 0) {
+        if (count < 0) {
             throw new IllegalArgumentException("Count should be > 0");
+        }
+        else if(count == 0){
+            return false;
         } else {
             Integer value = map.get(e);
             if (value == null) {
@@ -94,7 +97,7 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
     @Override
     @SuppressWarnings("unchecked")
     public boolean remove(Object e, int count){
-        if(count <= 0){
+        if(count < 0){
             throw new IllegalArgumentException("Count should be > 0");
         }
         Integer value = map.get(e);
