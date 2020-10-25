@@ -106,7 +106,7 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
         }
         if (value - count <= 0) {
             map.remove(e);
-            size--;
+            size-= value;
             return true;
         } else {
             map.put((T) e, value - count);
@@ -152,7 +152,7 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
 
     public String toString(){
         StringBuilder strb = new StringBuilder();
-        strb.append("[ ");
+        strb.append("[");
         Map.Entry<T, Integer> element;
 
         Iterator<Map.Entry<T, Integer>> itr = map.entrySet().iterator();
