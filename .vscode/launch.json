@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - MultiSetParserTest",
+            "request": "launch",
+            "mainClass": "pobj.multiset.MultiSetParserTest",
+            "projectName": "ressources_tp_collections"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -16,6 +23,13 @@
             "request": "launch",
             "mainClass": "pobj.multiset.Main",
             "projectName": "ressources_tp_collections"
+        },
+        {
+            "type": "java",
+            "name": "Debug with asserts (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "vmArgs": "-enableassertions"
         }
     ]
 }

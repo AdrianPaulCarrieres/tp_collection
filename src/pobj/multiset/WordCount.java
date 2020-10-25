@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class WordCount {
     private HashMultiSet<String> ms;
 
-    private static final int NB_A_AFFICHER = 10;
+    private static final int NUMBER_TO_PRINT = 10;
 
     Logger logger = Logger.getLogger(WordCount.class.getName());
 
@@ -29,8 +29,7 @@ public class WordCount {
                     ms.add(word);
                 }
             }
-            System.out.println(ms);
-            logger.info("Executed");
+            logger.info("Reading file complete");
         } catch (Exception e) {
             logger.severe("Erreur");
         }
@@ -60,7 +59,7 @@ public class WordCount {
         int compteur = 0;
         StringBuilder strb = new StringBuilder();
         for(Map.Entry<String, Integer> entry : reverseSortedMap.entrySet()){
-            if(compteur++ < NB_A_AFFICHER){
+            if(compteur++ < NUMBER_TO_PRINT){
                 strb.append(compteur);
                 strb.append(" : ");
                 strb.append(entry.getKey());
@@ -68,6 +67,5 @@ public class WordCount {
             }
         }
         System.out.println(strb.toString());
-        logger.info("Executed");
     }
 }

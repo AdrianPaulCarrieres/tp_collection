@@ -47,6 +47,9 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
                 map.put(e, value + count);
             }
             size += count;
+
+            assert isConsistent();
+
             return true;
         }
     }
@@ -60,6 +63,9 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
             map.put(e, ++value);
         }
         size++;
+
+        assert isConsistent();
+
         return true;
     }
 
@@ -87,9 +93,15 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
         size--;
         if (value == 1) {
             map.remove(e);
+
+            assert isConsistent();
+
             return true;
         } else {
             map.put((T) e, --value);
+
+            assert isConsistent();
+
             return false;
         }
     }
@@ -107,10 +119,16 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
         if (value - count <= 0) {
             map.remove(e);
             size-= value;
+
+            assert isConsistent();
+
             return true;
         } else {
             map.put((T) e, value - count);
             size -= count;
+
+            assert isConsistent();
+
             return false;
         }
     }
@@ -166,5 +184,19 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
         }
         strb.replace(strb.length() - 2, strb.length(), "]");
         return strb.toString();
+    }
+
+    private boolean isConsistent(){
+        Iterator<Map.Entry<T, Integer>> itr = map.entrySet().iterator();
+
+        int value = 0;
+        int totalCount = 0;
+
+        while(itr.hasNext()){
+            value = itr.next().getValue();
+            if(value <= 0) return false;
+            totalCount += value;
+        }
+        return totalCount == size();
     }
 }
